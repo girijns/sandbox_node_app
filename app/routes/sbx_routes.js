@@ -17,6 +17,18 @@ module.exports = function(app, auth) {
   app.get('/about', (req, res) => {
      res.render("pages/about");
   });
+  app.post('/register', (req, res) => {
+     const user = {username:req.body.username,firstname:req.body.firstname,lastname:req.body.lastname,email:req.body.email,password:req.body.password};
+     console.log("Registering user " + user.username);
+     const status = userService.add(user);
+     if("success" == status) {
+        console.log("Registered user " + user.username);
+        res.redirect("/login");
+     } else {
+        console.log("Registeration failed for user " + user.username);
+        res.redirect("/register");
+     }
+  });
   app.get('/register', (req, res) => {
      req.session.destroy();
      res.clearCookie("sbox_user_sid");
