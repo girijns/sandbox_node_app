@@ -24,7 +24,7 @@ const auth = function(req, res, next) {
   if (req.session && req.session.user)
     return next();
   else
-    return res.render('home');
+    return res.render('pages/home');
 };
 require('./app/routes')(app,auth);
 app.listen(port, () => {
